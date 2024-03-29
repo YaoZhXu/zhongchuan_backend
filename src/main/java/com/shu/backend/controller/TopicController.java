@@ -35,6 +35,10 @@ public class TopicController {
     @PostMapping("/add")
     public CommonResponse addTopic() {
         Long topicId = topicService.insert();
+        if (topicId == null) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新建对话失败");
+        }
+
         TopicAddResp resp = new TopicAddResp();
         resp.setTopicId(topicId);
         return CommonResponse.success(resp);
@@ -61,18 +65,18 @@ public class TopicController {
     @PostMapping("/clearTopicByTopicId")
     public CommonResponse clearTopicByTopicId(@Validated @RequestBody ClearTopicByTopicIdReq req) {
         boolean result = topicService.clearTopicByTopicId(req.getTopicId());
-        if (result) {
-            return CommonResponse.success();
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话清空失败");
         }
-        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话清空失败，请重试");
+        return CommonResponse.success();
     }
 
     @PostMapping("/delete")
     public CommonResponse deleteTopic(@Validated @RequestBody DeleteTopicReq req) {
-        boolean result = topicService.deleteTopic(req.getTopicId());
-        if (result) {
-            return CommonResponse.success();
+        boolean result = topicService.delete(req.getTopicId());
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话删除失败");
         }
-        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话删除失败，请重试");
+        return CommonResponse.success();
     }
 }

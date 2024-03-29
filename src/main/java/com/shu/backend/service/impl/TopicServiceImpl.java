@@ -38,7 +38,8 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
     @Override
     public List<Topic> getUserTopicList() {
         List<Topic> topicList = list(new LambdaQueryWrapper<Topic>()
-                .eq(Topic::getUserId, UserContextHolder.getUserInfo().getUserId()));
+                .eq(Topic::getUserId, UserContextHolder.getUserInfo().getUserId())
+                .orderByDesc(Topic::getStartTime));
         return topicList;
     }
 
@@ -52,19 +53,28 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
             return true;
         }
 
-        int result = chatMapper.delete(new LambdaQueryWrapper<Chat>()
+        chatMapper.delete(new LambdaQueryWrapper<Chat>()
                 .eq(Chat::getUserId, UserContextHolder.getUserInfo().getUserId())
                 .eq(Chat::getTopicId, topicId));
-        return result > 0;
+        return true;
     }
 
     @Override
     @Transactional
-    public boolean deleteTopic(Long topicId) {
-        boolean rmChats = clearTopicByTopicId(topicId);
-        boolean rmTopic = remove(new LambdaQueryWrapper<Topic>()
+    public boolean delete(Long topicId) {
+        if (topicId == null) {
+            return false;
+        }
+
+        LambdaQueryWrapper<Topic> wrapper = new LambdaQueryWrapper<Topic>()
                 .eq(Topic::getId, topicId)
-                .eq(Topic::getUserId, UserContextHolder.getUserInfo().getUserId()));
-        return rmChats & rmTopic;
+                .eq(Topic::getUserId, UserContextHolder.getUserInfo().getUserId());
+        if (getOne(wrapper) == null) {
+            return false;
+        }
+
+        clearTopicByTopicId(topicId);
+        remove(wrapper);
+        return true;
     }
 }

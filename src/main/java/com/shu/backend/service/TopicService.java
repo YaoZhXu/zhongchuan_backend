@@ -13,5 +13,5 @@ public interface TopicService extends IService<Topic> {
 
     boolean clearTopicByTopicId(Long topicId);
 
-    boolean deleteTopic(Long topicId);
+    boolean delete(Long topicId);
 }

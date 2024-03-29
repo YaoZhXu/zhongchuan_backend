@@ -15,10 +15,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public boolean register(User user) {
         List<User> userList = list(new LambdaQueryWrapper<User>().eq(User::getEmail, user.getEmail()));
-        if (userList.isEmpty()) {
-            return save(user);
+        if (!userList.isEmpty()) {
+            return false;
         }
-        return false;
+        return save(user);
     }
 
     @Override

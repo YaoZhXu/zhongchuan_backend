@@ -30,19 +30,18 @@ public class ChatController {
     @PostMapping("/addReview")
     public CommonResponse addReview(@Validated @RequestBody AddReviewReq req) {
         boolean result = chatService.addReview(req.getChatId(), req.getReview());
-        if (result) {
-            return CommonResponse.success();
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "评论添加失败");
         }
-        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "评论添加失败，请重试");
-
+        return CommonResponse.success();
     }
 
     @PostMapping("/deleteById")
     public CommonResponse deleteReview(@Validated @RequestBody DeleteChatReq req) {
         boolean result = chatService.deleteChat(req.getChatId());
-        if (result) {
-            return CommonResponse.success();
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "消息删除失败");
         }
-        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "消息删除失败，请重试");
+        return CommonResponse.success();
     }
 }

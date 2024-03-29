@@ -35,7 +35,7 @@ public class UserController {
         if (result) {
             return CommonResponse.success();
         }
-        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "注册失败");
+        return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "注册失败, email已被注册");
     }
 
     @PostMapping("/login")
@@ -46,8 +46,9 @@ public class UserController {
 
         User result = userService.login(user);
         if (result == null) {
-            return CommonResponse.fail(500, "登录失败");
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "登录失败");
         }
+
         UserLoginResp resp = new UserLoginResp();
         resp.setToken(generateJwtToken(String.valueOf(result.getId())));
         return CommonResponse.success(resp);
