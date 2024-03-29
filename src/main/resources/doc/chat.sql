@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
     id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username    VARCHAR(50)  NOT NULL,                                                       -- 用户名
+    username    VARCHAR(8)  NOT NULL,                                                       -- 用户名
     password    VARCHAR(32)  NOT NULL,                                                       -- 密码哈希值
     email       VARCHAR(100),                                                                -- 邮箱
     create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,                             -- 创建时间
