@@ -43,7 +43,7 @@ public class ChunkController {
         return CommonResponse.success();
     }
 
-    @GetMapping("/queryBuChunkId")
+    @GetMapping("/queryById")
     public CommonResponse queryByChunkId(@Validated @RequestBody QueryByChunkIdReq req) {
         Chunk chunk = chunkService.queryById(req.getChunkId());
         return CommonResponse.success(convertChunkToChunkVO(chunk));
