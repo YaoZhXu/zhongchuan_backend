@@ -2,7 +2,7 @@ package com.shu.backend.controller;
 
 import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
-import com.shu.backend.vo.ChatReq;
+import com.shu.backend.vo.request.ChatReq;
 import com.shu.backend.vo.request.AddReviewReq;
 import com.shu.backend.vo.request.DeleteChatReq;
 import com.shu.backend.vo.request.QueryByChatIdReq;

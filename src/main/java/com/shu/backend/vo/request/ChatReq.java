@@ -1,4 +1,4 @@
-package com.shu.backend.vo;
+package com.shu.backend.vo.request;
 
 import com.shu.backend.dto.Message;
 import lombok.Data;
