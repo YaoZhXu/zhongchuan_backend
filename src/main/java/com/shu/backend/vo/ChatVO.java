@@ -2,7 +2,6 @@ package com.shu.backend.vo;
 
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -20,7 +19,7 @@ public class ChatVO {
 
     private String content;
 
-    private LocalDateTime sendTime;
+    private String sendTime;
 
     private List<String> sourceLinks;
 

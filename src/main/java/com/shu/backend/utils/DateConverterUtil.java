@@ -5,12 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 public class DateConverterUtil {
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     public static LocalDateTime getCurrentLocalDateTime() {
         return LocalDateTime.now();
     }
 
     public static String localDatetime2String(LocalDateTime date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return date.format(formatter);
+    }
+
+    public static LocalDateTime string2LocalDateTime(String date) {
+        return LocalDateTime.parse(date, formatter);
     }
 }

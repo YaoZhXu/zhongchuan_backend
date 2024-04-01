@@ -1,6 +1,8 @@
 package com.shu.backend.controller;
 
+import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
+import com.shu.backend.vo.ChatReq;
 import com.shu.backend.vo.request.AddReviewReq;
 import com.shu.backend.vo.request.DeleteChatReq;
 import com.shu.backend.vo.request.QueryByChatIdReq;
@@ -11,6 +13,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+
+import static com.shu.backend.vo.converter.ChatConverter.convertChatToChatVO;
 
 @RestController
 @RequestMapping("/api/chat")
@@ -43,5 +48,14 @@ public class ChatController {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "消息删除失败");
         }
         return CommonResponse.success();
+    }
+
+    @PostMapping("/chat")
+    public CommonResponse chat(@Validated @RequestBody ChatReq req) throws IOException {
+        Chat result = chatService.chat(req.getTopicId(), req.getMessages());
+        if (result == null) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话失败");
+        }
+        return CommonResponse.success(convertChatToChatVO(result));
     }
 }

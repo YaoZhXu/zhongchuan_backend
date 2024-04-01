@@ -6,6 +6,8 @@ import com.shu.backend.vo.ChatVO;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
+
 public class ChatConverter {
 
     public static ChatVO convertChatToChatVO(Chat source) {
@@ -17,7 +19,7 @@ public class ChatConverter {
         target.setSenderId(source.getSenderId());
         target.setRole(source.getRole());
         target.setContent(source.getContent());
-        target.setSendTime(source.getSendTime());
+        target.setSendTime(localDatetime2String(source.getSendTime()));
 //        target.setSourceLinks(Arrays.asList(source.getSourceLinks().split(",")));
         target.setReview(source.getReview());
 
