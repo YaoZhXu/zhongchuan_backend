@@ -6,7 +6,7 @@ import com.shu.backend.po.Document;
 
 public interface DocumentService extends IService<Document> {
 
-    Page<Document> list(int pageNo, int pageSize, Long corpusId);
+    Page<Document> list(int pageNo, int pageSize, Long corpusId, String corpusName);
 
     boolean delete(Long docId);
 }

@@ -27,13 +27,17 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, Document> i
     private DirectoryStructureService directoryStructureService;
 
     @Override
-    public Page<Document> list(int pageNo, int pageSize, Long corpusId) {
-        if (corpusId == null) {
-            throw new RuntimeException("corpusId不能为空");
+    public Page<Document> list(int pageNo, int pageSize, Long corpusId, String docName) {
+        LambdaQueryWrapper<Document> wrapper = new LambdaQueryWrapper<>();
+        if (corpusId != null) {
+            wrapper.eq(Document::getCorpusId, corpusId);
+        }
+        if (docName != null) {
+            wrapper.like(Document::getName, docName);
         }
 
         Page<Document> p = new Page<>(pageNo, pageSize);
-        return page(p, new LambdaQueryWrapper<Document>().eq(Document::getCorpusId, corpusId));
+        return page(p, wrapper);
     }
 
     @Override
