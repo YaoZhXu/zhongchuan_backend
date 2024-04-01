@@ -29,6 +29,7 @@ CREATE TABLE document
     update_by    VARCHAR(8)       NOT NULL,                                                       -- 修改者ID
     update_time  DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 修改时间
     PRIMARY KEY (id),
+    INDEX idx_corpus_id (corpus_id),
     FOREIGN KEY (corpus_id) REFERENCES corpus (id)
 ) AUTO_INCREMENT = 3209847;
 
@@ -42,6 +43,8 @@ CREATE TABLE chunk
     create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,                             -- 创建时间
     update_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 修改时间
     PRIMARY KEY (id),
+    INDEX idx_corpus_id (corpus_id),
+    INDEX idx_doc_id (doc_id),
     FOREIGN KEY (corpus_id) REFERENCES corpus (id),
     FOREIGN KEY (doc_id) REFERENCES document (id)
 ) AUTO_INCREMENT = 3209847;
