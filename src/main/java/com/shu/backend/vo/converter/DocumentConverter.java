@@ -11,6 +11,10 @@ import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
 public class DocumentConverter {
 
     public static DocumentVO convertDocToDocVO(Document source) {
+        if (source == null) {
+            return null;
+        }
+
         DocumentVO target = new DocumentVO();
 
         target.setDocId(source.getId());
@@ -29,6 +33,10 @@ public class DocumentConverter {
     }
 
     public static List<DocumentVO> convertDocListToDocVOList(List<Document> sourceList) {
+        if (sourceList.isEmpty()) {
+            return null;
+        }
+
         List<DocumentVO> targetList = new ArrayList<>();
 
         sourceList.forEach((source) -> targetList.add(convertDocToDocVO(source)));

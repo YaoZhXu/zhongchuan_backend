@@ -11,6 +11,10 @@ import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
 public class CorpusConverter {
 
     public static CorpusVO convertCorpusToCorpusVO(Corpus source) {
+        if (source == null) {
+            return null;
+        }
+
         CorpusVO target = new CorpusVO();
 
         target.setCorpusId(source.getId());
@@ -25,6 +29,10 @@ public class CorpusConverter {
     }
 
     public static List<CorpusVO> convertCorpusListToCorpusVOList(List<Corpus> sourceList) {
+        if (sourceList.isEmpty()) {
+            return null;
+        }
+
         List<CorpusVO> targetList = new ArrayList<>();
 
         sourceList.forEach((source) -> targetList.add(convertCorpusToCorpusVO(source)));

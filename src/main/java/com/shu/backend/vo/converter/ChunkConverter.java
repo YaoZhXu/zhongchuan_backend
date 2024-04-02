@@ -11,6 +11,10 @@ import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
 public class ChunkConverter {
 
     public static ChunkVO convertChunkToChunkVO(Chunk source) {
+        if (source == null) {
+            return null;
+        }
+
         ChunkVO target = new ChunkVO();
 
         target.setChunkId(source.getId());
@@ -24,6 +28,10 @@ public class ChunkConverter {
     }
 
     public static List<ChunkVO> convertChunkListToChunkVOList(List<Chunk> sourceList) {
+        if (sourceList.isEmpty()) {
+            return null;
+        }
+
         List<ChunkVO> targetList = new ArrayList<>();
 
         sourceList.forEach((source) -> targetList.add(convertChunkToChunkVO(source)));

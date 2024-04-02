@@ -9,6 +9,10 @@ import java.util.List;
 public class TopicConverter {
 
     public static TopicVO convertTopicToTopicVO(Topic source) {
+        if (source == null) {
+            return null;
+        }
+
         TopicVO target = new TopicVO();
 
         target.setTopicId(source.getId());
@@ -21,6 +25,10 @@ public class TopicConverter {
     }
 
     public static List<TopicVO> convertTopicListToTopicVOList(List<Topic> sourceList) {
+        if (sourceList.isEmpty()) {
+            return null;
+        }
+
         List<TopicVO> targetList = new ArrayList<>();
 
         sourceList.forEach((source) -> targetList.add(convertTopicToTopicVO(source)));

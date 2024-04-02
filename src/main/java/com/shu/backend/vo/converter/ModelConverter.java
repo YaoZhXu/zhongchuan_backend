@@ -14,6 +14,10 @@ import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
 public class ModelConverter {
 
     public static ModelVO convertModelToModelVO(Model source) {
+        if (source == null) {
+            return null;
+        }
+
         ModelVO target = new ModelVO();
 
         target.setModelId(source.getId());
@@ -37,6 +41,10 @@ public class ModelConverter {
     }
 
     public static List<ModelVO> convertModelListToModelVOList(List<Model> sourceList) {
+        if (sourceList.isEmpty()) {
+            return null;
+        }
+
         List<ModelVO> targetList = new ArrayList<>();
 
         sourceList.forEach((source) -> targetList.add(convertModelToModelVO(source)));
@@ -45,6 +53,10 @@ public class ModelConverter {
     }
 
     public static Model convertAddModelReqToModel(AddModelReq source) {
+        if (source == null) {
+            return null;
+        }
+
         Model target = new Model();
 
         target.setType(source.getModelType());
@@ -62,6 +74,10 @@ public class ModelConverter {
     }
 
     public static Model convertEditModelReqToModel(EditModelReq source) {
+        if (source == null) {
+            return null;
+        }
+
         Model target = new Model();
 
         target.setId(source.getModelId());
@@ -80,6 +96,10 @@ public class ModelConverter {
     }
 
     public static Model convertPageListModelReqToModel(PageListModelReq source) {
+        if (source == null) {
+            return null;
+        }
+
         Model target = new Model();
 
         target.setId(source.getModelId());
