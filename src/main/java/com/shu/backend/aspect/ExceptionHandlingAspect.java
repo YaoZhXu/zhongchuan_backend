@@ -27,8 +27,7 @@ public class ExceptionHandlingAspect {
         try {
             return joinPoint.proceed();
         } catch (Exception e) {
-            log.error("服务器异常, Error message = {} args = {}",
-                    e.getMessage(), objectMapper.writeValueAsString(joinPoint.getArgs()));
+            log.error("服务器异常, Error message = {} args = {}", e.getMessage(), objectMapper.writeValueAsString(joinPoint.getArgs()));
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器异常");
         }
     }

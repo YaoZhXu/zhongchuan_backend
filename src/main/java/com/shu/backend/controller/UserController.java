@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-import static com.shu.backend.utils.JwtTokenGeneratorUtil.generateJwtToken;
+import static com.shu.backend.utils.JwtTokenGeneratorUtils.generateJwtToken;
 
 @RestController
 @RequestMapping("/api/user")

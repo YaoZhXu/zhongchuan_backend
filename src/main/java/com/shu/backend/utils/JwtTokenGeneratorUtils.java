@@ -9,10 +9,10 @@ import io.jsonwebtoken.security.SignatureException;
 import javax.crypto.SecretKey;
 import java.util.Date;
 
-public class JwtTokenGeneratorUtil {
+public class JwtTokenGeneratorUtils {
 
     private static final SecretKey SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME_MS = 3600000; // 1 hour
+    private static final long EXPIRATION_TIME_MS = 3600000 * 24; // 24 hour
 
     public static String generateJwtToken(String s) {
         Date now = new Date();

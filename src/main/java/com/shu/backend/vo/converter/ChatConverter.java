@@ -6,7 +6,7 @@ import com.shu.backend.vo.ChatVO;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
+import static com.shu.backend.utils.DateConverterUtils.localDatetime2String;
 
 public class ChatConverter {
 

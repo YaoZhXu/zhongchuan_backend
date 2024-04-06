@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.shu.backend.constants.DocEntryType.DOCTYPE2STRING;
-import static com.shu.backend.utils.DateConverterUtil.localDatetime2String;
+import static com.shu.backend.utils.DateConverterUtils.localDatetime2String;
 import static com.shu.backend.vo.converter.DocumentConverter.convertDocListToDocVOList;
 
 @RestController

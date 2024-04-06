@@ -18,4 +18,6 @@ public interface ChatService extends IService<Chat> {
     boolean deleteChat(Long chatId);
 
     Chat chat(Long topicId, List<Message> messages) throws IOException;
+
+    boolean add(List<Message> messages, Long topicId);
 }

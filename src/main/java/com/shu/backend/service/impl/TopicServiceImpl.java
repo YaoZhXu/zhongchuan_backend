@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 import java.util.List;
 
-import static com.shu.backend.utils.DateConverterUtil.*;
+import static com.shu.backend.utils.DateConverterUtils.*;
 
 @Service
 public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements TopicService {

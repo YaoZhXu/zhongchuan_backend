@@ -12,12 +12,15 @@ import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
 import com.shu.backend.utils.UserContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import static com.shu.backend.utils.DateConverterUtil.getCurrentLocalDateTime;
+import static com.shu.backend.utils.DateConverterUtils.getCurrentLocalDateTime;
 
 @Service
 public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements ChatService {
@@ -123,5 +126,29 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
         save(chat);
 
         return chat;
+    }
+
+    @Override
+    @Transactional
+    public boolean add(List<Message> messages, Long topicId) {
+        if (messages.isEmpty()) {
+            return false;
+        }
+
+        List<Chat> chatList = new ArrayList<>();
+        messages.forEach((message -> {
+            Chat chat = new Chat();
+            chat.setTopicId(topicId);
+            chat.setRole(message.getRole());
+            chat.setUserId(UserContextHolder.getUserInfo().getUserId());
+            if (Objects.equals(message.getRole(), "user")) {
+                chat.setSenderId(UserContextHolder.getUserInfo().getUserId());
+            }
+            chat.setContent(message.getContent());
+            chat.setSendTime(getCurrentLocalDateTime());
+            chatList.add(chat);
+        }));
+        saveBatch(chatList);
+        return true;
     }
 }

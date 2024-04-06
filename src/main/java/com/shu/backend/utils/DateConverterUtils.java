@@ -3,7 +3,7 @@ package com.shu.backend.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class DateConverterUtil {
+public class DateConverterUtils {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 

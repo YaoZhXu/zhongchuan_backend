@@ -2,10 +2,7 @@ package com.shu.backend.controller;
 
 import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
-import com.shu.backend.vo.request.ChatReq;
-import com.shu.backend.vo.request.AddReviewReq;
-import com.shu.backend.vo.request.DeleteChatReq;
-import com.shu.backend.vo.request.QueryByChatIdReq;
+import com.shu.backend.vo.request.*;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.QueryByChatIdResp;
 import org.springframework.http.HttpStatus;
@@ -57,5 +54,14 @@ public class ChatController {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话失败");
         }
         return CommonResponse.success(convertChatToChatVO(result));
+    }
+
+    @PostMapping("/add")
+    public CommonResponse add(@Validated @RequestBody AddChatReq req) {
+        boolean result = chatService.add(req.getMessages(), req.getTopicId());
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加消息失败");
+        }
+        return CommonResponse.success();
     }
 }

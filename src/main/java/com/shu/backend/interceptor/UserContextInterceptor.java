@@ -3,7 +3,7 @@ package com.shu.backend.interceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shu.backend.po.User;
 import com.shu.backend.service.UserService;
-import com.shu.backend.utils.JwtTokenGeneratorUtil;
+import com.shu.backend.utils.JwtTokenGeneratorUtils;
 import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.utils.UserInfoContext;
 import com.shu.backend.vo.response.CommonResponse;
@@ -34,7 +34,7 @@ public class UserContextInterceptor implements HandlerInterceptor {
 
         try {
             auth = auth.substring("Bearer ".length());
-            String parserId = JwtTokenGeneratorUtil.parserJwtToken(auth).getSubject();
+            String parserId = JwtTokenGeneratorUtils.parserJwtToken(auth).getSubject();
             if (parserId == null) {
                 sendErrorResponse(response, "身份信息解析失败，请重新登录", 401);
                 return false;
