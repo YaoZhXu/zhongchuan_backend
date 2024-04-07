@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Chunk;
 import com.shu.backend.service.ChunkService;
 import com.shu.backend.vo.ChunkVO;
-import com.shu.backend.vo.request.*;
+import com.shu.backend.vo.request.chunk.*;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;

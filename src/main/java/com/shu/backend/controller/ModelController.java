@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Model;
 import com.shu.backend.service.ModelService;
 import com.shu.backend.vo.ModelVO;
-import com.shu.backend.vo.request.*;
+import com.shu.backend.vo.request.model.*;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;

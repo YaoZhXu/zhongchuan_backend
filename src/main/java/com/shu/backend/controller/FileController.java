@@ -1,12 +1,12 @@
 package com.shu.backend.controller;
 
 import com.shu.backend.service.OssService;
-import com.shu.backend.vo.request.DeleteOssDirReq;
-import com.shu.backend.vo.request.DeleteOssFileReq;
-import com.shu.backend.vo.request.listDirFileReq;
+import com.shu.backend.vo.request.oss.DeleteOssDirReq;
+import com.shu.backend.vo.request.oss.DeleteOssFileReq;
+import com.shu.backend.vo.request.oss.listDirFileReq;
 import com.shu.backend.vo.response.CommonResponse;
-import com.shu.backend.vo.response.DirListResp;
-import com.shu.backend.vo.response.FileListResp;
+import com.shu.backend.vo.response.oss.DirListResp;
+import com.shu.backend.vo.response.oss.FileListResp;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

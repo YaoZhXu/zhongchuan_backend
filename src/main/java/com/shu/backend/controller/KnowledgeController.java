@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Knowledge;
 import com.shu.backend.service.KnowledgeService;
 import com.shu.backend.vo.KnowledgeVO;
-import com.shu.backend.vo.request.*;
+import com.shu.backend.vo.request.knowledge.*;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;

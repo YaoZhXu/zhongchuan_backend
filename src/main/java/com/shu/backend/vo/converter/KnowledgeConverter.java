@@ -2,9 +2,9 @@ package com.shu.backend.vo.converter;
 
 import com.shu.backend.po.Knowledge;
 import com.shu.backend.vo.KnowledgeVO;
-import com.shu.backend.vo.request.AddKnowledgeReq;
-import com.shu.backend.vo.request.EditKnowledgeReq;
-import com.shu.backend.vo.request.PageListKnowledgeReq;
+import com.shu.backend.vo.request.knowledge.AddKnowledgeReq;
+import com.shu.backend.vo.request.knowledge.EditKnowledgeReq;
+import com.shu.backend.vo.request.knowledge.PageListKnowledgeReq;
 
 import java.util.ArrayList;
 import java.util.List;

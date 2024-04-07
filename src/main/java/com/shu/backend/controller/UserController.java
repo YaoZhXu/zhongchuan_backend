@@ -2,10 +2,10 @@ package com.shu.backend.controller;
 
 import com.shu.backend.po.User;
 import com.shu.backend.service.UserService;
-import com.shu.backend.vo.request.UserLoginReq;
-import com.shu.backend.vo.request.UserRegisterReq;
+import com.shu.backend.vo.request.user.UserLoginReq;
+import com.shu.backend.vo.request.user.UserRegisterReq;
 import com.shu.backend.vo.response.CommonResponse;
-import com.shu.backend.vo.response.UserLoginResp;
+import com.shu.backend.vo.response.user.UserLoginResp;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

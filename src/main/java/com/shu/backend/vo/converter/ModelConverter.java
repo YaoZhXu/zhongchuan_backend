@@ -2,9 +2,9 @@ package com.shu.backend.vo.converter;
 
 import com.shu.backend.po.Model;
 import com.shu.backend.vo.ModelVO;
-import com.shu.backend.vo.request.AddModelReq;
-import com.shu.backend.vo.request.EditModelReq;
-import com.shu.backend.vo.request.PageListModelReq;
+import com.shu.backend.vo.request.model.AddModelReq;
+import com.shu.backend.vo.request.model.EditModelReq;
+import com.shu.backend.vo.request.model.PageListModelReq;
 
 import java.util.ArrayList;
 import java.util.List;

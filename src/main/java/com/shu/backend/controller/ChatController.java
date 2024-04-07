@@ -2,9 +2,9 @@ package com.shu.backend.controller;
 
 import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
-import com.shu.backend.vo.request.*;
+import com.shu.backend.vo.request.chat.*;
 import com.shu.backend.vo.response.CommonResponse;
-import com.shu.backend.vo.response.QueryByChatIdResp;
+import com.shu.backend.vo.response.chat.QueryByChatIdResp;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
