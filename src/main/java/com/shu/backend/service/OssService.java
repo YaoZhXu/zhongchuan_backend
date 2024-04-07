@@ -1,6 +1,5 @@
 package com.shu.backend.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,7 +9,17 @@ public interface OssService {
 
     String uploadImage(MultipartFile file) throws IOException;
 
-    List<String> fileList() throws JsonProcessingException;
+    String uploadFile(String dirName, MultipartFile file) throws IOException;
+
+    List<String> listDirFile(String dirName);
+
+    List<String> listAllDir();
+
+    void deleteDir(String dirName);
+
+    void deleteFile(String dirName, String fileName);
+
+    List<String> fileList();
 
     void createCatalogue(String catalogueName);
 

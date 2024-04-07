@@ -83,4 +83,21 @@ public class DirectoryFacade {
         ossClient.shutdown();
         return directoryList;
     }
+
+    public List<String> listDirFile(String cataloguePrefix) {
+        String accessKeyId = aliyunOssProperties.getAccessKeyId();
+        String accessKeySecret = aliyunOssProperties.getAccessKeySecret();
+        String endpoint = aliyunOssProperties.getEndpoint();
+        String bucketName = aliyunOssProperties.getBucketName();
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        ObjectListing objectListing = ossClient.listObjects(bucketName, cataloguePrefix);
+        List<OSSObjectSummary> sums = objectListing.getObjectSummaries();
+        List<String> directoryList = sums.stream()
+                .map(OSSObjectSummary::getKey)
+                .filter(key -> !key.endsWith("/"))
+                .collect(Collectors.toList());
+        ossClient.shutdown();
+        return directoryList;
+    }
 }

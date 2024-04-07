@@ -16,7 +16,7 @@ public class UploadFileFacade {
     @Resource
     private AliyunOssProperties aliyunOssProperties;
 
-    public String simpleUploadFile(MultipartFile file) throws IOException {
+    public String simpleUploadFile(String dirName, MultipartFile file) throws IOException {
         String accessKeyId = aliyunOssProperties.getAccessKeyId();
         String accessKeySecret = aliyunOssProperties.getAccessKeySecret();
         String endpoint = aliyunOssProperties.getEndpoint();
@@ -25,7 +25,7 @@ public class UploadFileFacade {
 
         String originalFileName = file.getOriginalFilename();
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fileName = java.util.UUID.randomUUID() + fileExtension;
+        String fileName = dirName + java.util.UUID.randomUUID() + fileExtension;
 
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream());
         ossClient.putObject(putObjectRequest);
