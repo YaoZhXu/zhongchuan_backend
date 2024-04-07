@@ -1,9 +1,8 @@
 package com.shu.backend.facade.aliyunoss;
 
 import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.model.PutObjectRequest;
-import com.shu.backend.utils.AliyunOssProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,22 +13,21 @@ import java.io.IOException;
 public class UploadFileFacade {
 
     @Resource
-    private AliyunOssProperties aliyunOssProperties;
+    private OSS ossClient;
+
+    @Value("${aliyun.oss.bucketName}")
+    private String bucketName;
+
+    @Value("${aliyun.oss.endpoint}")
+    private String endpoint;
 
     public String simpleUploadFile(String dirName, MultipartFile file) throws IOException {
-        String accessKeyId = aliyunOssProperties.getAccessKeyId();
-        String accessKeySecret = aliyunOssProperties.getAccessKeySecret();
-        String endpoint = aliyunOssProperties.getEndpoint();
-        String bucketName = aliyunOssProperties.getBucketName();
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-
         String originalFileName = file.getOriginalFilename();
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String fileName = dirName + java.util.UUID.randomUUID() + fileExtension;
 
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream());
         ossClient.putObject(putObjectRequest);
-        ossClient.shutdown();
         return "https://" + bucketName + "." + endpoint + "/" + fileName;
     }
 }
