@@ -1,6 +1,8 @@
 package com.shu.backend.po;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.time.LocalDateTime;
 @TableName("chunk")
 public class Chunk {
 
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     @TableField(value = "corpus_id")
@@ -18,9 +21,14 @@ public class Chunk {
     @TableField(value = "doc_id")
     private Long docId;
 
-    private String metadata;
+    private String title;
 
     private String content;
+
+    private Long pagination;
+
+    @TableField(value = "image_url")
+    private String imageUrl;
 
     @TableField(value = "create_time")
     private LocalDateTime createTime;

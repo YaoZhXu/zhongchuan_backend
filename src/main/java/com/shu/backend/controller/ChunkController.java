@@ -34,6 +34,16 @@ public class ChunkController {
         return CommonPageResponse.success(pageInfo);
     }
 
+    @PostMapping("/add")
+    public CommonResponse add(@Validated @RequestBody AddChunkReq req) {
+        boolean result = chunkService.add(req.getCorpusId(), req.getDocId(), req.getTitle(), req.getContent(),
+                req.getPagination(), req.getImageUrl());
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新建分片失败");
+        }
+        return CommonResponse.success();
+    }
+
     @PostMapping("/edit")
     public CommonResponse edit(@Validated @RequestBody EditChunkReq req) {
         boolean result = chunkService.edit(req.getChunkId(), req.getContent());

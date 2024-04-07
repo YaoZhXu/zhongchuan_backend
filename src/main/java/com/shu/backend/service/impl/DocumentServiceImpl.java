@@ -41,6 +41,19 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, Document> i
     }
 
     @Override
+    public boolean add(Long corpusId, String docName, String path) {
+        if (corpusId == null || docName == null || path == null) {
+            return false;
+        }
+
+        Document document = new Document();
+        document.setCorpusId(corpusId);
+        document.setName(docName);
+        document.setPath(path);
+        return save(document);
+    }
+
+    @Override
     @Transactional
     public boolean delete(Long docId) {
         if (docId == null) {

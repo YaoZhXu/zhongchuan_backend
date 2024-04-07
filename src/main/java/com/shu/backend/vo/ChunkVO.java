@@ -11,7 +11,11 @@ public class ChunkVO {
 
     private Long docId;
 
+    private String title;
+
     private String content;
+
+    private Long pagination;
 
     private String createTime;
 

@@ -20,7 +20,9 @@ public class ChunkConverter {
         target.setChunkId(source.getId());
         target.setCorpusId(source.getCorpusId());
         target.setDocId(source.getDocId());
+        target.setTitle(source.getTitle());
         target.setContent(source.getContent());
+        target.setPagination(source.getPagination());
         target.setCreateTime(localDatetime2String(source.getCreateTime()));
         target.setUpdateTime(localDatetime2String(source.getUpdateTime()));
 

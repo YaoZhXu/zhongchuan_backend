@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
     id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    username    VARCHAR(8)  NOT NULL,                                                       -- 用户名
+    username    VARCHAR(8)   NOT NULL,                                                       -- 用户名
     password    VARCHAR(32)  NOT NULL,                                                       -- 密码哈希值
     email       VARCHAR(100),                                                                -- 邮箱
     create_time DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,                             -- 创建时间
@@ -31,7 +31,7 @@ CREATE TABLE chat
     user_id      INT UNSIGNED NOT NULL, -- 会话创建人ID
     sender_id    INT UNSIGNED,          -- 消息创建人ID
     role         VARCHAR(255) NOT NULL, -- 角色
-    content      VARCHAR(255) NOT NULL, -- 消息内容
+    content      TEXT         NOT NULL, -- 消息内容
     send_time    DATETIME     NOT NULL, -- 消息发送时间
     source_links VARCHAR(1024),         -- 原文链接
     review       VARCHAR(255),          -- 评价

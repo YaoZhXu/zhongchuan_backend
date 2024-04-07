@@ -6,6 +6,7 @@ import com.shu.backend.service.CorpusService;
 import com.shu.backend.service.DocumentService;
 import com.shu.backend.vo.DocumentVO;
 import com.shu.backend.vo.ListAllDocVO;
+import com.shu.backend.vo.request.AddDocReq;
 import com.shu.backend.vo.request.DeleteDocReq;
 import com.shu.backend.vo.request.PageListAllDocReq;
 import com.shu.backend.vo.request.PageListDocReq;
@@ -71,6 +72,15 @@ public class DocumentController {
         }).collect(Collectors.toList());
         pageInfo.setRecords(collect);
         return CommonPageResponse.success(pageInfo);
+    }
+
+    @PostMapping("/add")
+    public CommonResponse add(@Validated @RequestBody AddDocReq req) {
+        boolean result = documentService.add(req.getCorpusId(), req.getDocName(), req.getPath());
+        if (!result) {
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新建文档失败");
+        }
+        return CommonResponse.success();
     }
 
     @PostMapping("/delete")

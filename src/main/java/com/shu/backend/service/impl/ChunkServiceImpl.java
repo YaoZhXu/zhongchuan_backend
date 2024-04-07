@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shu.backend.constants.DirectoryEntryType;
 import com.shu.backend.mapper.ChunkMapper;
+import com.shu.backend.mapper.DocumentMapper;
 import com.shu.backend.po.Chunk;
+import com.shu.backend.po.Document;
 import com.shu.backend.service.ChunkService;
 import com.shu.backend.service.DirectoryStructureService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +24,9 @@ public class ChunkServiceImpl extends ServiceImpl<ChunkMapper, Chunk> implements
     @Resource
     private DirectoryStructureService directoryStructureService;
 
+    @Resource
+    private DocumentMapper documentMapper;
+
     @Override
     public Page<Chunk> list(int pageNo, int pageSize, Long docId) {
         if (docId == null) {
@@ -30,6 +35,35 @@ public class ChunkServiceImpl extends ServiceImpl<ChunkMapper, Chunk> implements
 
         Page<Chunk> p = new Page<>(pageNo, pageSize);
         return page(p, new LambdaQueryWrapper<Chunk>().eq(Chunk::getDocId, docId));
+    }
+
+    @Override
+    @Transactional
+    public boolean add(Long corpusId, Long docId, String title, String content, Long pagination, String imageUrl) {
+        if (corpusId == null || docId == null || title == null || content == null || pagination == null) {
+            return false;
+        }
+
+        if (documentMapper.selectById(docId) == null) {
+            return false;
+        }
+
+        Chunk chunk = new Chunk();
+        chunk.setCorpusId(corpusId);
+        chunk.setDocId(docId);
+        chunk.setTitle(title);
+        chunk.setContent(content);
+        chunk.setPagination(pagination);
+        if (imageUrl != null) {
+            chunk.setImageUrl(imageUrl);
+        }
+
+        save(chunk);
+        documentMapper.update(new LambdaUpdateWrapper<Document>()
+                .eq(Document::getId, docId).eq(Document::getCorpusId, corpusId)
+                .set(Document::getChunkSize, documentMapper.selectById(docId).getChunkSize() + 1));
+
+        return true;
     }
 
     @Override
