@@ -8,7 +8,7 @@ public interface DocumentService extends IService<Document> {
 
     Page<Document> list(int pageNo, int pageSize, Long corpusId, String corpusName);
 
-    boolean add(Long corpusId, String docName, String path);
+    Long add(Long corpusId, String docName, String path);
 
     boolean delete(Long docId);
 }

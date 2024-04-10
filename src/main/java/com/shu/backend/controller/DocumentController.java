@@ -13,6 +13,7 @@ import com.shu.backend.vo.request.doc.PageListDocReq;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;
+import com.shu.backend.vo.response.doc.AddDocResp;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,11 +77,14 @@ public class DocumentController {
 
     @PostMapping("/add")
     public CommonResponse add(@Validated @RequestBody AddDocReq req) {
-        boolean result = documentService.add(req.getCorpusId(), req.getDocName(), req.getPath());
-        if (!result) {
+        Long result = documentService.add(req.getCorpusId(), req.getDocName(), req.getPath());
+        if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新建文档失败");
         }
-        return CommonResponse.success();
+
+        AddDocResp resp = new AddDocResp();
+        resp.setDocId(result);
+        return CommonResponse.success(resp);
     }
 
     @PostMapping("/delete")

@@ -41,16 +41,17 @@ public class DocumentServiceImpl extends ServiceImpl<DocumentMapper, Document> i
     }
 
     @Override
-    public boolean add(Long corpusId, String docName, String path) {
+    public Long add(Long corpusId, String docName, String path) {
         if (corpusId == null || docName == null || path == null) {
-            return false;
+            return null;
         }
 
         Document document = new Document();
         document.setCorpusId(corpusId);
         document.setName(docName);
         document.setPath(path);
-        return save(document);
+        save(document);
+        return document.getId();
     }
 
     @Override

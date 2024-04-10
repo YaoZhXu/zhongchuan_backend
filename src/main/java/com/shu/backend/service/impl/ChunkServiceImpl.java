@@ -39,13 +39,13 @@ public class ChunkServiceImpl extends ServiceImpl<ChunkMapper, Chunk> implements
 
     @Override
     @Transactional
-    public boolean add(Long corpusId, Long docId, String title, String content, Long pagination, String imageUrl) {
+    public Long add(Long corpusId, Long docId, String title, String content, Long pagination, String imageUrl) {
         if (corpusId == null || docId == null || title == null || content == null || pagination == null) {
-            return false;
+            return null;
         }
 
         if (documentMapper.selectById(docId) == null) {
-            return false;
+            return null;
         }
 
         Chunk chunk = new Chunk();
@@ -63,7 +63,7 @@ public class ChunkServiceImpl extends ServiceImpl<ChunkMapper, Chunk> implements
                 .eq(Document::getId, docId).eq(Document::getCorpusId, corpusId)
                 .set(Document::getChunkSize, documentMapper.selectById(docId).getChunkSize() + 1));
 
-        return true;
+        return chunk.getId();
     }
 
     @Override

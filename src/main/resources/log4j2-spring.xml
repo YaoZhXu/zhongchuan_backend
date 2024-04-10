@@ -1,12 +1,29 @@
-<Configuration>
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="org.apache.logging.log4j">
+    <Properties>
+        <Property name="logDirectory">logs</Property>
+        <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Property>
+    </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="${pattern}"/>
         </Console>
+        <RollingFile name="File" fileName="${logDirectory}/${date:yyyy-MM}/app.log"
+                     filePattern="${logDirectory}/${date:yyyy-MM}/$${date:MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${pattern}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="error">
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
         </Root>
+        <Logger name="com.yourpackage" level="INFO" additivity="false">
+            <AppenderRef ref="File"/>
+        </Logger>
     </Loggers>
 </Configuration>

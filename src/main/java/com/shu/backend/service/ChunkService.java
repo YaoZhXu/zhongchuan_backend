@@ -8,7 +8,7 @@ public interface ChunkService extends IService<Chunk> {
 
     Page<Chunk> list(int pageNo, int pageSize, Long docId);
 
-    boolean add(Long corpusId, Long docId, String title, String content, Long pagination, String imageUrl);
+    Long add(Long corpusId, Long docId, String title, String content, Long pagination, String imageUrl);
 
     boolean edit(Long chunkId, String content);
 

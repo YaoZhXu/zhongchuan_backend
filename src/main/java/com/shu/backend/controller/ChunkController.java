@@ -8,6 +8,7 @@ import com.shu.backend.vo.request.chunk.*;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;
+import com.shu.backend.vo.response.chunk.AddChunkResp;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -36,12 +37,15 @@ public class ChunkController {
 
     @PostMapping("/add")
     public CommonResponse add(@Validated @RequestBody AddChunkReq req) {
-        boolean result = chunkService.add(req.getCorpusId(), req.getDocId(), req.getTitle(), req.getContent(),
+        Long result = chunkService.add(req.getCorpusId(), req.getDocId(), req.getTitle(), req.getContent(),
                 req.getPagination(), req.getImageUrl());
-        if (!result) {
+        if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "新建分片失败");
         }
-        return CommonResponse.success();
+
+        AddChunkResp resp = new AddChunkResp();
+        resp.setChunkId(result);
+        return CommonResponse.success(resp);
     }
 
     @PostMapping("/edit")
