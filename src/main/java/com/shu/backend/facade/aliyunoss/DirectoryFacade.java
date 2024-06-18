@@ -4,7 +4,6 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.model.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -56,11 +55,18 @@ public class DirectoryFacade {
     }
 
     public List<String> listDirectory(String cataloguePrefix) {
-        ObjectListing objectListing = ossClient.listObjects(bucketName, cataloguePrefix);
+        ListObjectsRequest listObjectsRequest = new ListObjectsRequest(bucketName);
+
+        //列举所有文件
+        listObjectsRequest.setPrefix(cataloguePrefix);
+        //设置最大列举数
+        listObjectsRequest.setMaxKeys(1000);
+
+        ObjectListing objectListing = ossClient.listObjects(listObjectsRequest);
         List<OSSObjectSummary> sums = objectListing.getObjectSummaries();
         List<String> directoryList = sums.stream()
                 .map(OSSObjectSummary::getKey)
-                .filter(key -> key.endsWith("/"))
+                .filter(key -> key.endsWith("/")) //携带“/”的收集起来
                 .collect(Collectors.toList());
         return directoryList;
     }
@@ -70,7 +76,7 @@ public class DirectoryFacade {
         List<OSSObjectSummary> sums = objectListing.getObjectSummaries();
         List<String> directoryList = sums.stream()
                 .map(OSSObjectSummary::getKey)
-                .filter(key -> !key.endsWith("/"))
+                .filter(key -> !key.endsWith("/")) //不携带“/”的收集起来
                 .collect(Collectors.toList());
         return directoryList;
     }

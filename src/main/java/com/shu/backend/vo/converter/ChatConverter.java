@@ -10,6 +10,7 @@ import static com.shu.backend.utils.DateConverterUtils.localDatetime2String;
 
 public class ChatConverter {
 
+    // chat -> chatVO
     public static ChatVO convertChatToChatVO(Chat source) {
         if (source == null) {
             return null;
@@ -30,6 +31,7 @@ public class ChatConverter {
         return target;
     }
 
+    // chatList -> chatVOList
     public static List<ChatVO> convertChatListToChatVOList(List<Chat> sourceList) {
         if (sourceList.isEmpty()) {
             return null;

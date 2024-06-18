@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN" packages="org.apache.logging.log4j">
+<Configuration status="WARN">
     <Properties>
         <Property name="logDirectory">logs</Property>
         <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Property>
@@ -10,20 +10,43 @@
         </Console>
         <RollingFile name="File" fileName="${logDirectory}/${date:yyyy-MM}/app.log"
                      filePattern="${logDirectory}/${date:yyyy-MM}/$${date:MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <!-- 文件输出的格式 -->
             <PatternLayout pattern="${pattern}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="10MB"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
+
+        <JDBC name="databaseAppender" tableName="logs">
+            <ConnectionFactory class="com.shu.backend.config.Log4j2Config" method="getDatabaseConnection"/>
+            <Column name="event_id" pattern="%X{id}" />
+            <Column name="event_date" isEventTimestamp="true" />
+            <Column name="thread" pattern="%t %x" />
+            <Column name="class" pattern="%C" />
+            <Column name="method" pattern="%M" />
+            <Column name="message" pattern="%m" />
+            <Column name="exception" pattern="%ex{full}" />
+            <Column name="level" pattern="%level" />
+            <Column name="time" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}" />
+
+        </JDBC>
     </Appenders>
+
     <Loggers>
         <Root level="INFO">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="File"/>
         </Root>
-        <Logger name="com.yourpackage" level="INFO" additivity="false">
-            <AppenderRef ref="File"/>
+        <Logger name="com.shu.backend.controller" level="INFO">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="NEUTRAL"/>
+                <StringMatchFilter text="user" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <AppenderRef ref="databaseAppender" level="INFO"/>
         </Logger>
+        <Logger name="com.shu.backend" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
     </Loggers>
 </Configuration>

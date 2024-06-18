@@ -1,12 +1,14 @@
 package com.shu.backend.controller;
 
 import com.shu.backend.service.OssService;
+import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.vo.request.oss.DeleteOssDirReq;
 import com.shu.backend.vo.request.oss.DeleteOssFileReq;
 import com.shu.backend.vo.request.oss.listDirFileReq;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.oss.DirListResp;
 import com.shu.backend.vo.response.oss.FileListResp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/file")
 public class FileController {
@@ -23,12 +26,19 @@ public class FileController {
     @Resource
     private OssService ossService;
 
+    @GetMapping("/test")
+    public CommonResponse ttt(){
+        log.info("user upload xx.mp4");
+        return CommonResponse.success();
+    }
+
     @PostMapping("/oss/uploadImage")
     public CommonResponse uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
         String result = ossService.uploadImage(file);
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "图片上传失败");
         }
+        log.info("user upload a file: "+file.getName());
 
         return CommonResponse.success(result);
     }
@@ -40,6 +50,7 @@ public class FileController {
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文件上传失败");
         }
+        log.info("user upload a file into the "+dirName+" ,name : "+file.getName());
 
         return CommonResponse.success(result);
     }
@@ -50,6 +61,7 @@ public class FileController {
 
         FileListResp resp = new FileListResp();
         resp.setFileList(files);
+        log.info("user check the file list.");
         return CommonResponse.success(resp);
     }
 
@@ -65,12 +77,14 @@ public class FileController {
     @PostMapping("/oss/deleteDir")
     public CommonResponse deleteDir (@Validated @RequestBody DeleteOssDirReq req) {
         ossService.deleteDir(req.getDirName());
+        log.warn("user delete the file dir.");
         return CommonResponse.success();
     }
 
     @PostMapping("/oss/deleteFile")
     public CommonResponse deleteFile (@Validated @RequestBody DeleteOssFileReq req) {
         ossService.deleteFile(req.getDirName(), req.getFileName());
+        log.warn("user delete "+req.getFileName());
         return CommonResponse.success();
     }
 }

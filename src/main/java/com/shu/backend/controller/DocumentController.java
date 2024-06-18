@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Document;
 import com.shu.backend.service.CorpusService;
 import com.shu.backend.service.DocumentService;
+import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.vo.DocumentVO;
 import com.shu.backend.vo.ListAllDocVO;
 import com.shu.backend.vo.request.doc.AddDocReq;
@@ -14,6 +15,7 @@ import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;
 import com.shu.backend.vo.response.doc.AddDocResp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,7 @@ import static com.shu.backend.constants.DocEntryType.DOCTYPE2STRING;
 import static com.shu.backend.utils.DateConverterUtils.localDatetime2String;
 import static com.shu.backend.vo.converter.DocumentConverter.convertDocListToDocVOList;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/doc")
 public class DocumentController {
@@ -47,6 +50,7 @@ public class DocumentController {
         PageInfo<DocumentVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertDocListToDocVOList(result.getRecords()));
+        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the document list.");
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -72,6 +76,7 @@ public class DocumentController {
             return listAllDocVO;
         }).collect(Collectors.toList());
         pageInfo.setRecords(collect);
+        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the document list all.");
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -84,6 +89,7 @@ public class DocumentController {
 
         AddDocResp resp = new AddDocResp();
         resp.setDocId(result);
+        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a document.");
         return CommonResponse.success(resp);
     }
 
@@ -93,6 +99,7 @@ public class DocumentController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除文档失败");
         }
+        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a document.");
         return CommonResponse.success();
     }
 }

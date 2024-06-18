@@ -13,7 +13,7 @@ public interface ChatService extends IService<Chat> {
 
     String queryByChatId(Long chatId);
 
-    boolean addReview(Long chatId, String review);
+    boolean addReview(Long topicId,String content, String review);
 
     boolean deleteChat(Long chatId);
 

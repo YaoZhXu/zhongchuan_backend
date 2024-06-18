@@ -2,10 +2,12 @@ package com.shu.backend.controller;
 
 import com.shu.backend.po.User;
 import com.shu.backend.service.UserService;
+import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.vo.request.user.UserLoginReq;
 import com.shu.backend.vo.request.user.UserRegisterReq;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.user.UserLoginResp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import javax.annotation.Resource;
 
 import static com.shu.backend.utils.JwtTokenGeneratorUtils.generateJwtToken;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -51,6 +54,7 @@ public class UserController {
 
         UserLoginResp resp = new UserLoginResp();
         resp.setToken(generateJwtToken(String.valueOf(result.getId())));
+//        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' login.");
         return CommonResponse.success(resp);
     }
 }

@@ -60,13 +60,15 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
     }
 
     @Override
-    public boolean addReview(Long chatId, String review) {
-        if (chatId == null) {
+    public boolean addReview(Long topicId,String content, String review) {
+        if (topicId == null) {
             return false;
         }
 
+        // 查询数据库是否存在当前chat
         LambdaQueryWrapper<Chat> wrapper = new LambdaQueryWrapper<Chat>()
-                .eq(Chat::getId, chatId)
+                .eq(Chat::getTopicId, topicId)
+                .eq(Chat::getContent,content)
                 .eq(Chat::getUserId, UserContextHolder.getUserInfo().getUserId());
         if (getOne(wrapper) == null) {
             return false;
@@ -75,9 +77,10 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
         if (review == null) {
             return true;
         }
-
+        // 存在且review不为null，更新当前chat
         return update(new LambdaUpdateWrapper<Chat>()
-                .eq(Chat::getId, chatId)
+                .eq(Chat::getTopicId, topicId)
+                .eq(Chat::getContent,content)
                 .eq(Chat::getUserId, UserContextHolder.getUserInfo().getUserId())
                 .set(Chat::getReview, review));
     }

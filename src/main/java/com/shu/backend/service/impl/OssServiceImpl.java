@@ -98,7 +98,7 @@ public class OssServiceImpl implements OssService {
             dirName = dirName.substring(1);
         }
 
-            log.info("【fileManageFacade.isFileExist】开始, req = {}", dirName);
+        log.info("【fileManageFacade.isFileExist】开始, req = {}", dirName);
         boolean exist = fileManageFacade.isFileExist(dirName);
         log.info("【fileManageFacade.isFileExist】结束, resp = {}", exist);
         if (!exist) {

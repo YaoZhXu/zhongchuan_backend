@@ -3,11 +3,13 @@ package com.shu.backend.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Model;
 import com.shu.backend.service.ModelService;
+import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.vo.ModelVO;
 import com.shu.backend.vo.request.model.*;
 import com.shu.backend.vo.response.CommonPageResponse;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.annotation.Resource;
 
 import static com.shu.backend.vo.converter.ModelConverter.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/model")
 public class ModelController {
@@ -30,6 +33,7 @@ public class ModelController {
         PageInfo<ModelVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertModelListToModelVOList(result.getRecords()));
+        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the model list.");
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -40,6 +44,7 @@ public class ModelController {
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加模型失败");
         }
+        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a model.");
         return CommonResponse.success();
     }
 
@@ -50,6 +55,7 @@ public class ModelController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑模型失败");
         }
+        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a model:"+req.getModelId()+".");
         return CommonResponse.success();
     }
 
@@ -60,6 +66,7 @@ public class ModelController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除模型失败");
         }
+        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a model.");
         return CommonResponse.success();
     }
 

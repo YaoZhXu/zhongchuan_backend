@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class QueryByModelIdResp {
 
-    private ModelVO modelVO;
+    private ModelVO modelVO;//返回内容
 }
