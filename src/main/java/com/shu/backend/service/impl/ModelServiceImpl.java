@@ -134,6 +134,9 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if (model.getContextLength() != null) {
             wrapper.eq(Model::getContextLength, model.getContextLength());
         }
+        if(model.getIsRun() != null){
+            wrapper.eq(Model::getIsRun, model.getIsRun());
+        }
 
         Page<Model> p = new Page<>(pageNo, pageSize);
         return page(p, wrapper);

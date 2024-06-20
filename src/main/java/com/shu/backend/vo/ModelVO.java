@@ -38,4 +38,6 @@ public class ModelVO {
     private String updateBy;
 
     private String updateTime;
+
+    private String isRun;
 }

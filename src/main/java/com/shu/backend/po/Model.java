@@ -52,4 +52,7 @@ public class Model {
 
     @TableField(value = "update_time")
     private LocalDateTime updateTime;
+
+    @TableField(value = "is_run")
+    private String isRun;
 }

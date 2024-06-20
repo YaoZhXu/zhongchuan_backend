@@ -36,6 +36,7 @@ public class ModelConverter {
         target.setCreateTime(localDatetime2String(source.getCreateTime()));
         target.setUpdateBy(source.getUpdateBy());
         target.setUpdateTime(localDatetime2String(source.getUpdateTime()));
+        target.setIsRun(source.getIsRun());
 
         return target;
     }
@@ -69,6 +70,7 @@ public class ModelConverter {
         target.setQuantization(source.getQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
+        target.setIsRun("false");
 
         return target;
     }
@@ -91,6 +93,7 @@ public class ModelConverter {
         target.setQuantization(source.getQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
+        target.setIsRun("false");
 
         return target;
     }
