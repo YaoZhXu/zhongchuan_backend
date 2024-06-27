@@ -69,6 +69,9 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if (model.getContextLength() != null) {
             wrapper.set(Model::getContextLength, model.getContextLength());
         }
+        if(StringUtils.isNotBlank(model.getIsRun())){
+            wrapper.set(Model::getIsRun,model.getIsRun());
+        }
 
         // TODO 调算法改uid
         wrapper.set(Model::getUid, "等算法");

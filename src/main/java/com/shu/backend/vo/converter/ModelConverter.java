@@ -93,7 +93,7 @@ public class ModelConverter {
         target.setQuantization(source.getQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
-        target.setIsRun("false");
+        target.setIsRun(source.getIsRun());
 
         return target;
     }

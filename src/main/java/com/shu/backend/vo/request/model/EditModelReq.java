@@ -30,4 +30,6 @@ public class EditModelReq {
     private String revision;
 
     private Long contextLength;
+
+    private String isRun;
 }

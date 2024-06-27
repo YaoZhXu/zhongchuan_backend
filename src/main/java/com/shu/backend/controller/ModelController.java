@@ -55,7 +55,20 @@ public class ModelController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑模型失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a model:"+req.getModelId()+".");
+//        if(req.getIsRun().equals("true")){
+//            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' run a model:"+req.getModelId()+".");
+//        }else if(req.getIsRun().equals("false")){
+//            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' stop a model:"+req.getModelId()+".");
+//        }else{
+//
+//        }
+        if(req.getIsRun()==null){
+            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a model:"+req.getModelId()+".");
+        }else if(req.getIsRun().equals("true")){
+            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' run a model:"+req.getModelId()+".");
+        }else if(req.getIsRun().equals("false")){
+            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' stop a model:"+req.getModelId()+".");
+        }
         return CommonResponse.success();
     }
 

@@ -44,6 +44,15 @@
             </Filters>
             <AppenderRef ref="databaseAppender" level="INFO"/>
         </Logger>
+        <!-- 设置MyBatis-Plus的日志级别为DEBUG -->
+<!--        <Logger name="SQL" level="INFO" additivity="false">-->
+<!--            <Filters>-->
+<!--                <StringMatchFilter text="Preparing" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            </Filters>-->
+<!--            <AppenderRef ref="databaseAppender" level="INFO"/>-->
+<!--&lt;!&ndash;            <AppenderRef ref="Console"/>&ndash;&gt;-->
+<!--        </Logger>-->
+
         <Logger name="com.shu.backend" level="INFO" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
