@@ -54,7 +54,7 @@ public class UserController {
 
         UserLoginResp resp = new UserLoginResp();
         resp.setToken(generateJwtToken(String.valueOf(result.getId())));
-//        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' login.");
+        log.info("user {} login",result.getId());
         return CommonResponse.success(resp);
     }
 }

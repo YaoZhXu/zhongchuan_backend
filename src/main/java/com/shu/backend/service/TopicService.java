@@ -14,4 +14,6 @@ public interface TopicService extends IService<Topic> {
     boolean clearTopicByTopicId(Long topicId);
 
     boolean delete(Long topicId);
+
+    boolean rename(Long topicId, String name);
 }

@@ -16,15 +16,13 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
 
     @Override
     public Long insert(Model model) {
-        if (StringUtils.isBlank(model.getType()) || StringUtils.isBlank(model.getName()) ||
+        if (StringUtils.isBlank(model.getType()) || StringUtils.isBlank(model.getNickName()) ||
                 StringUtils.isBlank(model.getLang()) || StringUtils.isBlank(model.getAbility()) ||
-                StringUtils.isBlank(model.getFormat()) || model.getSizeInBillions() == null ||
+                StringUtils.isBlank(model.getFormat()) || StringUtils.isBlank(model.getModelFamily()) ||
                 model.getContextLength() == null) {
             return null;
         }
 
-        // TODO 调算法改uid
-        model.setUid("等算法");
         model.setCreateBy(UserContextHolder.getUserInfo().getUsername());
         model.setUpdateBy(UserContextHolder.getUserInfo().getUsername());
         save(model);
@@ -42,8 +40,8 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if (StringUtils.isNotBlank(model.getType())) {
             wrapper.set(Model::getType, model.getType());
         }
-        if (StringUtils.isNotBlank(model.getName())) {
-            wrapper.set(Model::getName, model.getName());
+        if (StringUtils.isNotBlank(model.getNickName())) {
+            wrapper.set(Model::getNickName, model.getNickName());
         }
         if (StringUtils.isNotBlank(model.getLang())) {
             wrapper.set(Model::getLang, model.getLang());
@@ -72,9 +70,22 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if(StringUtils.isNotBlank(model.getIsRun())){
             wrapper.set(Model::getIsRun,model.getIsRun());
         }
+        if(StringUtils.isNotBlank(model.getModelFamily())){
+            wrapper.set(Model::getModelFamily,model.getModelFamily());
+        }
+        if(StringUtils.isNotBlank(model.getModelFileNameTemplate())){
+            wrapper.set(Model::getModelFileNameTemplate,model.getModelFileNameTemplate());
+        }
+        if(StringUtils.isNotBlank(model.getModelUri())){
+            wrapper.set(Model::getModelUri,model.getModelUri());
+        }
+        if(StringUtils.isNotBlank(model.getModelId())){
+            wrapper.set(Model::getModelId,model.getModelId());
+        }
+        if(StringUtils.isNotBlank(model.getPromptStyle())){
+            wrapper.set(Model::getPromptStyle,model.getPromptStyle());
+        }
 
-        // TODO 调算法改uid
-        wrapper.set(Model::getUid, "等算法");
         wrapper.set(Model::getUpdateBy, UserContextHolder.getUserInfo().getUsername());
         return update(wrapper);
     }
@@ -84,8 +95,6 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if (modelId == null || getById(modelId) == null) {
             return false;
         }
-
-        // TODO 调算法
         return removeById(modelId);
     }
 
@@ -104,14 +113,12 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
         if (model.getId() != null) {
             wrapper.eq(Model::getId, model.getId());
         }
-        if (model.getUid() != null) {
-            wrapper.like(Model::getUid, model.getUid());
-        }
+
         if (model.getType() != null) {
             wrapper.like(Model::getType, model.getType());
         }
-        if (model.getName() != null) {
-            wrapper.like(Model::getName, model.getName());
+        if (model.getNickName() != null) {
+            wrapper.like(Model::getNickName, model.getNickName());
         }
         if (model.getLang() != null) {
             wrapper.like(Model::getLang, model.getLang());

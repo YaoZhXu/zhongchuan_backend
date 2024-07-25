@@ -38,7 +38,6 @@ public class FileController {
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "图片上传失败");
         }
-        log.info("user upload a file: "+file.getName());
 
         return CommonResponse.success(result);
     }
@@ -50,7 +49,6 @@ public class FileController {
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "文件上传失败");
         }
-        log.info("user upload a file into the "+dirName+" ,name : "+file.getName());
 
         return CommonResponse.success(result);
     }
@@ -61,7 +59,7 @@ public class FileController {
 
         FileListResp resp = new FileListResp();
         resp.setFileList(files);
-        log.info("user check the file list.");
+
         return CommonResponse.success(resp);
     }
 
@@ -77,14 +75,12 @@ public class FileController {
     @PostMapping("/oss/deleteDir")
     public CommonResponse deleteDir (@Validated @RequestBody DeleteOssDirReq req) {
         ossService.deleteDir(req.getDirName());
-        log.warn("user delete the file dir.");
-        return CommonResponse.success();
+         return CommonResponse.success();
     }
 
     @PostMapping("/oss/deleteFile")
     public CommonResponse deleteFile (@Validated @RequestBody DeleteOssFileReq req) {
         ossService.deleteFile(req.getDirName(), req.getFileName());
-        log.warn("user delete "+req.getFileName());
-        return CommonResponse.success();
+           return CommonResponse.success();
     }
 }

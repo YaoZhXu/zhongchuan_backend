@@ -2,6 +2,7 @@ package com.shu.backend.vo.converter;
 
 import com.shu.backend.po.Chat;
 import com.shu.backend.vo.ChatVO;
+import com.shu.backend.vo.request.chat.PageListChatReq;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +43,21 @@ public class ChatConverter {
         sourceList.forEach((source) -> targetList.add(convertChatToChatVO(source)));
 
         return targetList;
+    }
+
+    public static Chat convertPageListChatReqToChat(PageListChatReq source){
+        if(source == null){
+            return null;
+        }
+        Chat target = new Chat();
+
+        target.setId(source.getChatId());
+        target.setTopicId(source.getTopicId());
+        target.setUserId(source.getUserId());
+        target.setRole(source.getRole());
+        target.setContent(source.getContent());
+        target.setSendTime(source.getSendTime());
+
+        return target;
     }
 }

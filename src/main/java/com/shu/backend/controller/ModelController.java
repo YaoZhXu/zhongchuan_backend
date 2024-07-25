@@ -33,7 +33,7 @@ public class ModelController {
         PageInfo<ModelVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertModelListToModelVOList(result.getRecords()));
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the model list.");
+
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -41,10 +41,11 @@ public class ModelController {
     public CommonResponse add(@Validated @RequestBody AddModelReq req) {
         Long result = modelService.insert(convertAddModelReqToModel(req));
 
+
         if (result == null) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加模型失败");
         }
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a model.");
+
         return CommonResponse.success();
     }
 
@@ -55,13 +56,6 @@ public class ModelController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑模型失败");
         }
-//        if(req.getIsRun().equals("true")){
-//            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' run a model:"+req.getModelId()+".");
-//        }else if(req.getIsRun().equals("false")){
-//            log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' stop a model:"+req.getModelId()+".");
-//        }else{
-//
-//        }
         if(req.getIsRun()==null){
             log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a model:"+req.getModelId()+".");
         }else if(req.getIsRun().equals("true")){
@@ -74,18 +68,18 @@ public class ModelController {
 
     @PostMapping("/delete")
     public CommonResponse delete(@Validated @RequestBody DeleteModelReq req) {
-        boolean result = modelService.delete(req.getModelId());
+        boolean result = modelService.delete(req.getId());
 
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除模型失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a model.");
+
         return CommonResponse.success();
     }
 
     @GetMapping("/queryById")
     public CommonResponse queryByModelId(@Validated @RequestBody QueryByModelIdReq req) {
-        Model model = modelService.queryById(req.getModelId());
+        Model model = modelService.queryById(req.getId());
         return CommonResponse.success(convertModelToModelVO(model));
     }
 }

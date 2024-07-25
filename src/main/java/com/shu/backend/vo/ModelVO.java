@@ -7,9 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class ModelVO {
 
-    private Long modelId;
-
-    private String modelUid;
+    private Long id;
 
     private String modelType;
 
@@ -40,4 +38,14 @@ public class ModelVO {
     private String updateTime;
 
     private String isRun;
+
+    private String modelFamily;
+
+    private String modelId;
+
+    private String modelUri;
+
+    private String modelFileNameTemplate;
+
+    private String modelPromptStyle;
 }

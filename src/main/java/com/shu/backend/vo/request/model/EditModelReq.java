@@ -8,12 +8,20 @@ import java.math.BigDecimal;
 @Data
 public class EditModelReq {
 
-    @NotNull(message = "modelId不能为空")
-    private Long modelId;
+    @NotNull(message = "Id不能为空")
+    private Long id;
 
     private String modelType;
 
     private String modelName;
+
+    private String modelId;
+
+    private String modelFamily;
+
+    private String modelUri;
+
+    private String modelFileNameTemplate;
 
     private String modelLang;
 
@@ -32,4 +40,6 @@ public class EditModelReq {
     private Long contextLength;
 
     private String isRun;
+
+    private String modelPromptStyle;
 }

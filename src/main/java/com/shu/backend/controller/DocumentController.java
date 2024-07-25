@@ -50,7 +50,7 @@ public class DocumentController {
         PageInfo<DocumentVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertDocListToDocVOList(result.getRecords()));
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the document list.");
+
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -76,7 +76,7 @@ public class DocumentController {
             return listAllDocVO;
         }).collect(Collectors.toList());
         pageInfo.setRecords(collect);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the document list all.");
+
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -89,7 +89,7 @@ public class DocumentController {
 
         AddDocResp resp = new AddDocResp();
         resp.setDocId(result);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a document.");
+//        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a document.");
         return CommonResponse.success(resp);
     }
 
@@ -99,7 +99,7 @@ public class DocumentController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除文档失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a document.");
+//        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a document.");
         return CommonResponse.success();
     }
 }

@@ -2,6 +2,7 @@ package com.shu.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shu.backend.dto.ChatDTO;
 import com.shu.backend.dto.Message;
@@ -68,8 +69,9 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
         // 查询数据库是否存在当前chat
         LambdaQueryWrapper<Chat> wrapper = new LambdaQueryWrapper<Chat>()
                 .eq(Chat::getTopicId, topicId)
-                .eq(Chat::getContent,content)
+                .like(Chat::getContent,content)
                 .eq(Chat::getUserId, UserContextHolder.getUserInfo().getUserId());
+
         if (getOne(wrapper) == null) {
             return false;
         }
@@ -80,7 +82,7 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
         // 存在且review不为null，更新当前chat
         return update(new LambdaUpdateWrapper<Chat>()
                 .eq(Chat::getTopicId, topicId)
-                .eq(Chat::getContent,content)
+                .like(Chat::getContent,content)
                 .eq(Chat::getUserId, UserContextHolder.getUserInfo().getUserId())
                 .set(Chat::getReview, review));
     }
@@ -153,5 +155,42 @@ public class ChatServiceImpl extends ServiceImpl<ChatMapper, Chat> implements Ch
         }));
         saveBatch(chatList);
         return true;
+    }
+
+    @Override
+    public Page<Chat> list(Integer pageNo, Integer pageSize, Chat chat) {
+        LambdaQueryWrapper<Chat> wrapper = new LambdaQueryWrapper<>();
+        if(chat.getId()!=null){
+            wrapper.eq(Chat::getId,chat.getId());
+        }
+        if(chat.getTopicId()!=null){
+            wrapper.like(Chat::getTopicId,chat.getTopicId());
+        }
+        if(chat.getUserId()!=null){
+            wrapper.like(Chat::getUserId,chat.getUserId());
+        }
+        if(chat.getRole()!=null){
+            wrapper.like(Chat::getRole,chat.getRole());
+        }
+        if(chat.getContent()!=null){
+            wrapper.like(Chat::getContent,chat.getContent());
+        }
+
+        Page<Chat> p = new Page<>(pageNo,pageSize);
+        return page(p,wrapper);
+
+    }
+
+    @Override
+    public Page<Chat> queryByUserId(Integer pageNo, Integer pageSize, Long userId) {
+
+        LambdaQueryWrapper<Chat> wrapper = new LambdaQueryWrapper<>();
+        if(userId==null){
+            return null;
+        }
+        wrapper.eq(Chat::getUserId,userId);
+        Page<Chat> p = new Page<>(pageNo,pageSize);
+        return page(p,wrapper);
+
     }
 }

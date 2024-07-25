@@ -42,7 +42,6 @@ public class ParameterController {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑参数失败");
         }
 
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit the config.");
         return CommonResponse.success();
     }
 }

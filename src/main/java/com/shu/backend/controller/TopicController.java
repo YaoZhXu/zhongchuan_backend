@@ -12,6 +12,7 @@ import com.shu.backend.vo.converter.TopicConverter;
 import com.shu.backend.vo.request.topic.ClearTopicByTopicIdReq;
 import com.shu.backend.vo.request.topic.DeleteTopicReq;
 import com.shu.backend.vo.request.topic.GetHisChatListByTopicIdReq;
+import com.shu.backend.vo.request.topic.RenameTopicByTopicIdReq;
 import com.shu.backend.vo.response.CommonResponse;
 import com.shu.backend.vo.response.topic.GetHisChatListByTopicIdResp;
 import com.shu.backend.vo.response.topic.GetUserTopicListResp;
@@ -44,7 +45,7 @@ public class TopicController {
 
         TopicAddResp resp = new TopicAddResp();
         resp.setTopicId(topicId);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a topic.");
+
         return CommonResponse.success(resp);
     }
 
@@ -54,7 +55,7 @@ public class TopicController {
         List<TopicVO> topicVOList = TopicConverter.convertTopicListToTopicVOList(topicList);
         GetUserTopicListResp resp = new GetUserTopicListResp();
         resp.setTopicList(topicVOList);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the topic list.");
+
         return CommonResponse.success(resp);
     }
 
@@ -73,7 +74,7 @@ public class TopicController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话清空失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' clear the topic list:"+req.getTopicId()+".");
+
         return CommonResponse.success();
     }
 
@@ -83,7 +84,18 @@ public class TopicController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "对话删除失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a topic:"+req.getTopicId()+".");
+
+        return CommonResponse.success();
+    }
+
+    // 修改对话名字
+    @PostMapping("/rename")
+    public CommonResponse renameTopic(@Validated @RequestBody RenameTopicByTopicIdReq req){
+        boolean result = topicService.rename(req.getTopicId(),req.getName());
+        if(!result){
+            return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(),"对话名称修改失败");
+        }
+
         return CommonResponse.success();
     }
 }

@@ -24,7 +24,8 @@ public class UploadFileFacade {
     public String simpleUploadFile(String dirName, MultipartFile file) throws IOException {
         String originalFileName = file.getOriginalFilename();
         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-        String fileName = dirName + java.util.UUID.randomUUID() + fileExtension;
+//        String fileName = dirName + java.util.UUID.randomUUID() + fileExtension;
+        String fileName = dirName + originalFileName;
 
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, fileName, file.getInputStream());
         ossClient.putObject(putObjectRequest);

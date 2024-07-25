@@ -39,7 +39,7 @@ public class CorpusController {
         PageInfo<CorpusVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertCorpusListToCorpusVOList(result.getRecords()));
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the corpus list.");
+
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -51,7 +51,7 @@ public class CorpusController {
         }
         AddCorpusResp resp = new AddCorpusResp();
         resp.setCorpusId(result);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a corpus.");
+
         return CommonResponse.success(resp);
     }
 
@@ -61,7 +61,7 @@ public class CorpusController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑语料库失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a corpus: "+req.getCorpusId()+".");
+
         return CommonResponse.success();
     }
 
@@ -80,7 +80,7 @@ public class CorpusController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除语料库失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a corpus.");
+
         return CommonResponse.success();
     }
 }

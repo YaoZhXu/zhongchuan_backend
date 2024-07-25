@@ -20,13 +20,12 @@ public class ModelConverter {
 
         ModelVO target = new ModelVO();
 
-        target.setModelId(source.getId());
-        target.setModelUid(source.getUid());
+        target.setId(source.getId());
         target.setModelType(source.getType());
-        target.setModelName(source.getName());
+        target.setModelName(source.getNickName());
         target.setModelLang(source.getLang());
         target.setModelAbility(source.getAbility());
-        target.setModelDescription(source.getAbility());
+        target.setModelDescription(source.getModelDesc());
         target.setModelFormat(source.getFormat());
         target.setModelSizeInBillions(source.getSizeInBillions());
         target.setQuantization(source.getQuantization());
@@ -37,6 +36,11 @@ public class ModelConverter {
         target.setUpdateBy(source.getUpdateBy());
         target.setUpdateTime(localDatetime2String(source.getUpdateTime()));
         target.setIsRun(source.getIsRun());
+        target.setModelFamily(source.getModelFamily());
+        target.setModelUri(source.getModelUri());
+        target.setModelFileNameTemplate(source.getModelFileNameTemplate());
+        target.setModelPromptStyle(source.getPromptStyle());
+        target.setModelId(source.getModelId());
 
         return target;
     }
@@ -61,7 +65,7 @@ public class ModelConverter {
         Model target = new Model();
 
         target.setType(source.getModelType());
-        target.setName(source.getModelName());
+        target.setNickName(source.getModelName());
         target.setLang(source.getModelLang());
         target.setAbility(source.getModelAbility());
         target.setModelDesc(source.getModelDescription());
@@ -70,6 +74,11 @@ public class ModelConverter {
         target.setQuantization(source.getQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
+        target.setModelFamily(source.getModelFamily());
+        target.setModelUri(source.getModelUri());
+        target.setModelFileNameTemplate(source.getModelFileNameTemplate());
+        target.setModelId(source.getModelId());
+        target.setPromptStyle(source.getModelPromptStyle());
         target.setIsRun("false");
 
         return target;
@@ -82,9 +91,9 @@ public class ModelConverter {
 
         Model target = new Model();
 
-        target.setId(source.getModelId());
+        target.setId(source.getId());
         target.setType(source.getModelType());
-        target.setName(source.getModelName());
+        target.setNickName(source.getModelName());
         target.setLang(source.getModelLang());
         target.setAbility(source.getModelAbility());
         target.setModelDesc(source.getModelDescription());
@@ -93,7 +102,13 @@ public class ModelConverter {
         target.setQuantization(source.getQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
+        target.setModelFamily(source.getModelFamily());
+        target.setModelUri(source.getModelUri());
+        target.setModelFileNameTemplate(source.getModelFileNameTemplate());
+        target.setModelId(source.getModelId());
+        target.setPromptStyle(source.getModelPromptStyle());
         target.setIsRun(source.getIsRun());
+
 
         return target;
     }
@@ -105,16 +120,15 @@ public class ModelConverter {
 
         Model target = new Model();
 
-        target.setId(source.getModelId());
-        target.setUid(source.getModelUid());
+        target.setId(source.getId());
         target.setType(source.getModelType());
-        target.setName(source.getModelName());
+        target.setNickName(source.getModelNickName());
         target.setLang(source.getModelLang());
         target.setAbility(source.getModelAbility());
-        target.setModelDesc(source.getModelDescription());
+        target.setModelDesc(source.getModelDesc());
         target.setFormat(source.getModelFormat());
         target.setSizeInBillions(source.getModelSizeInBillions());
-        target.setQuantization(source.getQuantization());
+        target.setQuantization(source.getModelQuantization());
         target.setRevision(source.getRevision());
         target.setContextLength(source.getContextLength());
         target.setCreateBy(source.getCreateBy());

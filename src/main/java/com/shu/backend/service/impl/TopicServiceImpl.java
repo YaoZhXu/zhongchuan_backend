@@ -1,6 +1,7 @@
 package com.shu.backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shu.backend.mapper.ChatMapper;
 import com.shu.backend.mapper.TopicMapper;
@@ -8,6 +9,7 @@ import com.shu.backend.po.Chat;
 import com.shu.backend.po.Topic;
 import com.shu.backend.service.TopicService;
 import com.shu.backend.utils.UserContextHolder;
+import org.codehaus.plexus.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -76,5 +78,23 @@ public class TopicServiceImpl extends ServiceImpl<TopicMapper, Topic> implements
         clearTopicByTopicId(topicId);
         remove(wrapper);
         return true;
+    }
+
+    @Override
+    @Transactional
+    public boolean rename(Long topicId, String name) {
+        if (topicId == null) {
+            return false;
+        }
+
+        LambdaUpdateWrapper<Topic> wrapper = new LambdaUpdateWrapper<Topic>()
+                .eq(Topic::getId,topicId)
+                .eq(Topic::getUserId,UserContextHolder.getUserInfo().getUserId());
+
+        if(StringUtils.isNotBlank(name)){
+            wrapper.set(Topic::getName,name);
+        }
+
+        return update(wrapper);
     }
 }

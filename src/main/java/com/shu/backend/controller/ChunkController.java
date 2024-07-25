@@ -35,7 +35,7 @@ public class ChunkController {
         PageInfo<ChunkVO> pageInfo = new PageInfo<>();
         pageInfo.fill(result);
         pageInfo.setRecords(convertChunkListToChunkVOList(result.getRecords()));
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' check the chunk list.");
+
         return CommonPageResponse.success(pageInfo);
     }
 
@@ -49,7 +49,7 @@ public class ChunkController {
 
         AddChunkResp resp = new AddChunkResp();
         resp.setChunkId(result);
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a chunk.");
+
         return CommonResponse.success(resp);
     }
 
@@ -59,7 +59,7 @@ public class ChunkController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "编辑分片失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' edit a chunk: "+req.getChunkId()+".");
+
         return CommonResponse.success();
     }
 
@@ -75,7 +75,7 @@ public class ChunkController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "删除分片失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a chunk: "+req.getChunkId()+".");
+
         return CommonResponse.success();
     }
 }

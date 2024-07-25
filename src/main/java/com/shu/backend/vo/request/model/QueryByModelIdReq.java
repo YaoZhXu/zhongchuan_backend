@@ -8,5 +8,5 @@ import javax.validation.constraints.NotNull;
 public class QueryByModelIdReq {
 
     @NotNull(message = "modelId不能为空")
-    private Long modelId;
+    private Long id;
 }

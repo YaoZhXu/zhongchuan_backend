@@ -1,5 +1,6 @@
 package com.shu.backend.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shu.backend.dto.Message;
 import com.shu.backend.po.Chat;
@@ -20,4 +21,8 @@ public interface ChatService extends IService<Chat> {
     Chat chat(Long topicId, List<Message> messages) throws IOException;
 
     boolean add(List<Message> messages, Long topicId);
+
+    Page<Chat> list(Integer pageNo, Integer pageSize, Chat chat);
+
+    Page<Chat> queryByUserId(Integer pageNo, Integer pageSize, Long userId);
 }

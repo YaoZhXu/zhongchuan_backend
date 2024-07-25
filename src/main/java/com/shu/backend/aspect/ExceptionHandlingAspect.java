@@ -1,9 +1,11 @@
 package com.shu.backend.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shu.backend.utils.UserContextHolder;
 import com.shu.backend.vo.response.CommonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.core.Ordered;
@@ -27,7 +29,7 @@ public class ExceptionHandlingAspect {
         try {
             return joinPoint.proceed();
         } catch (Exception e) {
-            log.error("服务器异常, Error message = {} args = {}", e.getMessage(), objectMapper.writeValueAsString(joinPoint.getArgs()));
+            log.error("服务器异常, Error message = {}, args = {}", e.getMessage(), objectMapper.writeValueAsString(joinPoint.getArgs()));
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器异常");
         }
     }

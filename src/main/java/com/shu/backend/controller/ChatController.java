@@ -1,10 +1,13 @@
 package com.shu.backend.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.shu.backend.po.Chat;
 import com.shu.backend.service.ChatService;
 import com.shu.backend.utils.UserContextHolder;
+import com.shu.backend.vo.ChatVO;
 import com.shu.backend.vo.request.chat.*;
 import com.shu.backend.vo.response.CommonResponse;
+import com.shu.backend.vo.response.PageInfo;
 import com.shu.backend.vo.response.chat.QueryByChatIdResp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 
-import static com.shu.backend.vo.converter.ChatConverter.convertChatToChatVO;
+import static com.shu.backend.vo.converter.ChatConverter.*;
 
 @Slf4j
 @RestController
@@ -38,7 +41,6 @@ public class ChatController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "评论添加失败");
         }
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a review.");
         return CommonResponse.success();
     }
 
@@ -48,7 +50,7 @@ public class ChatController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "消息删除失败");
         }
-        log.warn("user '"+ UserContextHolder.getUserInfo().getUserId()+"' delete a review.");
+
         return CommonResponse.success();
     }
 
@@ -67,7 +69,29 @@ public class ChatController {
         if (!result) {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加消息失败");
         }
-        log.info("user '"+ UserContextHolder.getUserInfo().getUserId()+"' add a chat topic.");
+
         return CommonResponse.success();
+    }
+
+    @PostMapping("/list")
+    public CommonResponse list(@Validated  @RequestBody PageListChatReq req){
+        Page<Chat> result = chatService.list(req.getPageNo(),req.getPageSize(),convertPageListChatReqToChat(req));
+
+        PageInfo<ChatVO> info  = new PageInfo<>();
+        info.fill(result);
+        info.setRecords(convertChatListToChatVOList(result.getRecords()));
+
+        return CommonResponse.success(info);
+
+    }
+
+    @PostMapping("/queryByUserId")
+    public CommonResponse queryByUserId(@Validated @RequestBody QueryByUserIdReq req){
+        Page<Chat> result = chatService.queryByUserId(req.getPageNo(),req.getPageSize(),req.getUserId());
+
+        PageInfo<ChatVO> info = new PageInfo<>();
+        info.fill(result);
+        info.setRecords(convertChatListToChatVOList(result.getRecords()));
+        return CommonResponse.success(info);
     }
 }

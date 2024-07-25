@@ -16,11 +16,13 @@ public class Model {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    private String uid;
+    @TableField(value = "nick_name")
+    private String nickName;
 
     private String type;
 
-    private String name;
+    @TableField(value = "llm_id")
+    private String llmId;
 
     private String lang;
 
@@ -55,4 +57,20 @@ public class Model {
 
     @TableField(value = "is_run")
     private String isRun;
+
+    @TableField(value = "model_family")
+    private String modelFamily;
+
+    @TableField(value = "model_id")
+    private String modelId;
+
+    @TableField(value = "model_uri")
+    private String modelUri;
+
+    @TableField(value = "model_file_name_template")
+    private String modelFileNameTemplate;
+
+    @TableField(value = "prompt_style")
+    private String promptStyle;
+
 }

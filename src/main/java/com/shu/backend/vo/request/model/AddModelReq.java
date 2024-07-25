@@ -15,6 +15,15 @@ public class AddModelReq {
     @NotBlank(message = "modelName不能为空")
     private String modelName;
 
+    @NotBlank(message = "modelFamily不能为空")
+    private String modelFamily;
+
+    private String modelId;
+
+    private String modelUri;
+
+    private String modelFileNameTemplate;
+
     @NotBlank(message = "modelLang不能为空")
     private String modelLang;
 
@@ -26,7 +35,6 @@ public class AddModelReq {
     @NotBlank(message = "modelFormat不能为空")
     private String modelFormat;
 
-    @NotNull(message = "modelSizeInBillions不能为空")
     private BigDecimal modelSizeInBillions;
 
     private String quantization;
@@ -35,4 +43,6 @@ public class AddModelReq {
 
     @NotNull(message = "contextLength不能为空")
     private Long contextLength;
+
+    private String modelPromptStyle;
 }
