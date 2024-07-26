@@ -46,7 +46,7 @@ public class ModelController {
             return CommonResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR.value(), "添加模型失败");
         }
 
-        return CommonResponse.success();
+        return CommonResponse.success(result);
     }
 
     @PostMapping("/edit")
